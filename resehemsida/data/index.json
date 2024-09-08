@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Portugal",
+        "imageSrc": "img/portugal/portugal.jpg",
+        "description": "A fantastic destination with beautiful beaches and rich culture.",
+        "rating": "&#9734;&#9734;&#9734;&#9734;&#9734;"
+    },
+    {
+        "name": "Italy",
+        "imageSrc": "img/italy.jpg",
+        "description": "Known for its history, food, and art.",
+        "rating": "&#9734;&#9734;&#9734;&#9734;&#9734;"
+    },
+    {
+        "name": "France",
+        "imageSrc": "img/frankrike.jpg",
+        "description": "Famous for its museums and romantic atmosphere.",
+        "rating": "&#9734;&#9734;&#9734;&#9734;&#9734;"
+    },
+    {
+        "name": "Japan",
+        "imageSrc": "img/japan.jpg",
+        "description": "A unique blend of tradition and modernity.",
+        "rating": "&#9734;&#9734;&#9734;&#9734;&#9734;"
+    }
+]
