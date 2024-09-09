@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="star" data-value="4">&#9734;</span>
                             <span class="star" data-value="5">&#9734;</span>
                         </div>
+                        <input type="text" placeholder="Ditt namn" class="reviewer-name" pattern="[A-Za-zåäöÅÄÖ ]+" required title="Ange endast bokstäver och mellanslag">
+                        <textarea placeholder="Skriv en recension" class="review-text" maxlength="200"></textarea>
                         <button class="save-btn" data-destination="${trip.name}">Spara Resa</button>
                     `;
                     gridContainer.appendChild(listItem);
@@ -42,11 +44,27 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.save-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const destinationItem = button.closest('.destination-item');
+                const reviewerName = destinationItem.querySelector('.reviewer-name').value.trim();
+                const reviewText = destinationItem.querySelector('.review-text').value.trim();
                 const rating = destinationItem.querySelector('.rating');
                 const selectedStars = rating.querySelectorAll('.star.selected');
 
+                // Validate reviewer name
+                const nameRegex = /^[A-Za-zåäöÅÄÖ ]+$/;
+                if (!reviewerName || !nameRegex.test(reviewerName)) {
+                    alert('Vänligen ange ett giltigt namn som endast innehåller bokstäver.');
+                    return;
+                }
+
+                // Validate review text
+                if (!reviewText) {
+                    alert('Vänligen skriv en recension.');
+                    return;
+                }
+
+                // Validate rating
                 if (selectedStars.length === 0) {
-                    alert('Please select at least one star before saving.');
+                    alert('Vänligen välj minst en stjärna innan du sparar.');
                     return;
                 }
 
@@ -54,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const imageSrc = destinationItem.querySelector('img').src;
                 const ratingHTML = rating.innerHTML;
 
-                saveTrip(destinationName, imageSrc, ratingHTML);
+                saveTrip(destinationName, imageSrc, ratingHTML, reviewerName, reviewText);
 
                 const listItem = document.createElement('li');
                 listItem.classList.add('trip-item');
@@ -63,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="trip-details">
                         <h3>${destinationName}</h3>
                         <div class="rating">${ratingHTML}</div>
+                        <p><strong>Recension av ${reviewerName}:</strong> ${reviewText}</p>
                     </div>
                 `;
                 savedTripsList.appendChild(listItem);
@@ -84,9 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function saveTrip(destinationName, imageSrc, rating) {
+    function saveTrip(destinationName, imageSrc, rating, reviewerName, reviewText) {
         const savedTrips = JSON.parse(localStorage.getItem('savedTrips')) || [];
-        savedTrips.push({ name: destinationName, imageSrc, rating });
+        savedTrips.push({ name: destinationName, imageSrc, rating, reviewerName, reviewText });
         localStorage.setItem('savedTrips', JSON.stringify(savedTrips));
     }
 
@@ -100,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="trip-details">
                     <h3>${trip.name}</h3>
                     <div class="rating">${trip.rating}</div>
+                    <p><strong>Recension av ${trip.reviewerName}:</strong> ${trip.reviewText}</p>
                 </div>
             `;
             savedTripsList.appendChild(listItem);
