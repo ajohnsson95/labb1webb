@@ -104,6 +104,19 @@ aside {
     overflow-y: auto; 
     max-height: 100vh; 
 }
+.reviewer-name, .review-text {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.review-text {
+    max-height: 100px;
+    resize: vertical;
+}
 
 .saved-trips {
     margin-top: 10px;
@@ -334,4 +347,16 @@ footer {
     main {
         border: none; 
     }
+        .destination-item img {
+            width: 100%; /* Gör bilderna lika breda som sina föräldrar */
+            height: auto; /* Justerar höjden automatiskt för att bibehålla proportionerna */
+        }
+    
+        .destination-item {
+            flex: 1 1 100%; /* Justerar destinationen till att ta upp hela bredden */
+        }
+        .grid-container {
+            grid-template-columns: 1fr; /* Endast en kolumn på mindre skärmar */
+        }
+
 }
